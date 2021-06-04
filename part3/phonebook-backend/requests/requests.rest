@@ -1,4 +1,4 @@
-DELETE http://localhost:3001/api/persons/
+DELETE https://boiling-springs-96480.herokuapp.com/api/persons/2
 
 
 #####
