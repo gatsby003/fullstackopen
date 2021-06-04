@@ -4,6 +4,9 @@
   "description": "backend for phonebook app developed in part 2",
   "main": "index.js",
   "scripts": {
+    "build:ui": "rm -rf build && cd ../../part2/phonebook/ && npm run build --prod && cp -r build ../../part3/phonebook-backend/",
+    "deploy": "git subtree push --prefix part3/phonebook-backend heroku master",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "start": "node index.js",
     "dev": "nodemon --delay 500ms index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
