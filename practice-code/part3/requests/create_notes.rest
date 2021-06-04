@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/notes HTTP/1.2
+content-type: application/json
+
+{
+    "content": "VS Code is epic!",
+    "important": false
+}

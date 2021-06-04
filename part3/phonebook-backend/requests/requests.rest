@@ -1,0 +1,26 @@
+DELETE http://localhost:3001/api/persons/
+
+
+#####
+GET http://localhost:3001/api/persons/79
+
+
+
+#####
+POST http://localhost:3001/api/persons 
+content-type: application/json
+
+{
+    "name" : "ramesh Futane",
+    "number" : "9881240202"
+}
+
+
+#####
+POST http://localhost:3001/api/persons 
+content-type: application/json
+
+{
+    "name" : "Xavier Ramesh",
+    "number" : "89784556512"
+}
