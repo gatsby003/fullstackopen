@@ -7,6 +7,7 @@ const cors = require('cors')
 
 
 //middleware
+app.use(express.static('build'))
 app.use(express.json())
 app.use(cors())
 
