@@ -23,6 +23,7 @@ const App = () => {
     return arr.includes(name.name)
   }
 
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const nameObject = {
@@ -30,15 +31,31 @@ const App = () => {
       number : newNumber,
     }
 
-    checkDuplicates(nameObject) 
-      ? (setNewError(`Name ${newName} already exists`, newName)) 
-      : personService
+    if (checkDuplicates(nameObject)){
+      const duplicate = persons.find(person => person.name === newName)
+      console.log(duplicate.id);
+      nameObject.id = duplicate.id
+      const newArray = persons.filter(person => person.name !== newName)
+      newArray.push(nameObject)
+      console.log(newArray)
+      personService
+          .update(nameObject)
+          .then(returnedPerson => {
+            setPersons(newArray)
+            setNewName('')
+            setNewNumber('')
+            setNewError(`${newName} updated to phonebook.`)
+          })
+    } else {
+      personService
           .create(nameObject)
           .then(returnedPerson => {
             setPersons(persons.concat(returnedPerson))
             setNewName('')
             setNewNumber('')
+            setNewError(`${newName} added to phonebook.`)
           })
+    }
   }
 
   const handleDelete = (id) => {
@@ -48,6 +65,7 @@ const App = () => {
       .then(console.log("yo"))
       personService.getAll().then(inititalPersons => {
         setPersons(inititalPersons)
+        setNewError(`Deleted Successfully`)
       })
     }
   }

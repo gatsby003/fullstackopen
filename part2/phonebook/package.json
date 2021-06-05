@@ -16,8 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "json-server -p3001 --watch db.json"
+    "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {
@@ -40,5 +39,9 @@
   },
   "devDependencies": {
     "json-server": "^0.16.3"
+  },
+  "devServer": {
+    "compress": true,
+    "public": "https://guarded-meadow-75323.herokuapp.com/" 
   }
 }
