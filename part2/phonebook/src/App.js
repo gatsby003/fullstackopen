@@ -124,7 +124,7 @@ const App = () => {
 
   const Numbers = ({service}) => {
     if (newSearch.length === 0) {
-      return <Contacts handleDelete={service}/>
+      return <Contacts z={service}/>
     }
     return <SearchResult />
   }
