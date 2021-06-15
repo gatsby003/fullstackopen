@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+content-type: application/json
+
+{
+    "title": "I am honest",
+    "author": "Bloodbastard",
+    "url": "thisiswitchcraft.com",
+    "likes": 69
+}
