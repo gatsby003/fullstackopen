@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Blog = require('./models/blog');
 
-const url = 'mongodb+srv://fullstack:thebluebird123@fullstackopen.9c97m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const url = 'mongodb+srv://gatsby:thebluebird123@cluster0.psmcz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 mongoose.connect(url, {
   useNewUrlParser: true,
@@ -9,20 +10,8 @@ mongoose.connect(url, {
   useCreateIndex: true,
 });
 
-const blogSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number,
-});
-
-const Blog = mongoose.model('Blog', blogSchema);
-
 const blog = new Blog({
-  title: 'Witch Hunting in the 16th century was pointless',
   author: 'Harry Potter',
-  url: 'thisiswitchcraft.com',
-  likes: 69,
 });
 
 blog.save().then(result => {

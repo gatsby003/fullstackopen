@@ -1,9 +1,23 @@
-POST http://localhost:3003/api/blogs
+POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
     "title": "I am honest",
     "author": "Bloodbastard",
-    "url": "thisiswitchcraft.com",
     "likes": 69
 }
+
+###############
+
+PUT http://localhost:3001/api/blogs/60c89166a7747d999666acdf
+content-type: application/json
+
+{
+    "id": "60c89166a7747d999666acdf",
+    "title": "I am a liar",
+    "author": "Bloodbastard",
+    "likes": 69
+}
+
+###################
+DELETE http://localhost:3001/api/blogs/60c89166a7747d999666acdf

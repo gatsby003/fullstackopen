@@ -7,10 +7,12 @@ const config = require('./utils/config');
 const logger = require('./utils/logger');
 const blogRouter = require('./controllers/blogs');
 
+
+
 logger.info('connecting to', config.MONGODB_URI);
 
 const mongoUrl = config.MONGODB_URI;
-mongoose.connect(mongoUrl, {
+mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true,
 }).catch((error) => logger.error(error));
 

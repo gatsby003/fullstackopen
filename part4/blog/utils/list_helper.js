@@ -4,6 +4,8 @@ const dummy = (blogs) => {
 }
 
 
+
+
 const totalLikes = (blogs) => {
     let totalLikes = 0;
     blogs.forEach(blog => {
@@ -26,10 +28,20 @@ const favoriteBlog = (blogs) => {
     })
     return topBlog;
 }
+
+const checkId = (blogs) => {
+    blogs.forEach(blog => {
+        if (!blog.hasOwnProperty("id")){
+            return false
+        }
+    })
+    return true;
+}
   
   module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
+    checkId,
   }
 
