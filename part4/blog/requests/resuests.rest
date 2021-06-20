@@ -2,12 +2,26 @@ POST http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-    "title": "I am honest",
-    "author": "Bloodbastard",
-    "likes": 69
+    "title": "I am hodddnestyddddddddddd",
+    "author": "Bloodsadsbastard",
+    "likes": 69,
+    "url" : "www.csadasom",
+    "userId" : "60cd916cc8606753b62df4d2"
 }
 
 ###############
+
+
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+    "username" : "ganesfaash12",
+    "password" : "123dfda456"
+}
+
+
+#############
 
 PUT http://localhost:3001/api/blogs/60c89166a7747d999666acdf
 content-type: application/json
@@ -21,3 +35,30 @@ content-type: application/json
 
 ###################
 DELETE http://localhost:3001/api/blogs/60c89166a7747d999666acdf
+
+
+########
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+    "name" : "ganesh",
+    "username" : "ganesfaash12",
+    "password" : "123dfda456"
+
+}
+
+##############
+
+
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdhbmVzZmFhc2gxMiIsImlkIjoiNjBjZGQ1OTBiZGJmOTgyYWYzZmJkNDYwIiwiaWF0IjoxNjI0MTAyMzA5fQ.79Wo4d0fDNXohX6ImEhPNINPqORMRjzrEzodcVG3Eg4
+
+{
+    "title": "I am hodddnestyddddddddddd",
+    "author": "Bloodsadsbastard",
+    "likes": 69,
+    "url" : "www.csadasom"
+
+}
