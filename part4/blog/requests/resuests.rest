@@ -12,18 +12,18 @@ content-type: application/json
 ###############
 
 
-POST http://localhost:3001/api/login
+POST http://localhost:3003/api/login
 content-type: application/json
 
 {
-    "username" : "ganesfaash12",
-    "password" : "123dfda456"
+    "username" : "gatsby",
+    "password" : "gatsby"
 }
 
 
 #############
 
-PUT http://localhost:3001/api/blogs/60c89166a7747d999666acdf
+PUT http://localhost:3003/api/blogs/60c89166a7747d999666acdf
 content-type: application/json
 
 {
@@ -34,7 +34,7 @@ content-type: application/json
 }
 
 ###################
-DELETE http://localhost:3001/api/blogs/60c89166a7747d999666acdf
+DELETE http://localhost:3003/api/blogs/60c89166a7747d999666acdf
 
 
 ########
@@ -42,16 +42,16 @@ POST http://localhost:3003/api/users
 content-type: application/json
 
 {
-    "name" : "ganesh",
-    "username" : "ganesfaash12",
-    "password" : "123dfda456"
+    "name" : "hymen",
+    "username" : "grotesque",
+    "password" : "grotesque"
 
 }
 
 ##############
 
 
-POST http://localhost:3001/api/blogs
+POST http://localhost:3003/api/blogs
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdhbmVzZmFhc2gxMiIsImlkIjoiNjBjZGQ1OTBiZGJmOTgyYWYzZmJkNDYwIiwiaWF0IjoxNjI0MTAyMzA5fQ.79Wo4d0fDNXohX6ImEhPNINPqORMRjzrEzodcVG3Eg4
 

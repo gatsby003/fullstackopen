@@ -1,7 +1,7 @@
 const express = require('express');
 
-const app = express();
 const cors = require('cors');
+const app = express();
 const mongoose = require('mongoose');
 const config = require('./utils/config');
 const logger = require('./utils/logger');

@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const loginRouter = require('express').Router()
 const User = require('../models/user')
+const cors = require('cors')
 
-loginRouter.post('/', async (request, response) => {
+loginRouter.post('/',cors() ,async (request, response) => {
     const body = request.body
   
     const user = await User.findOne({ username: body.username })
