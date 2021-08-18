@@ -1,4 +1,4 @@
-const palindrome = (string) => {
+  const palindrome = (string) => {
     return string
       .split('')
       .reverse()

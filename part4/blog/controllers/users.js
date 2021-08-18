@@ -12,11 +12,17 @@ userRouter.post('/', async (request, response) => {
                 error : "Password length must be greater than 5"
             })
         }
+    
+    if (body.username.length < 5){
+        console.log('error gang')
+        response.status(400).json({
+            error : "Username length must be greater than 5"
+        })
+    }
 
     //read up on password hashing!
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds).catch(error => console.log(error))
-    console.log(passwordHash)
 
     const user = new User({
         username: body.username,

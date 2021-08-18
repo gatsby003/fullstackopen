@@ -1,3 +1,5 @@
+const ld = require('lodash')
+
 const dummy = (blogs) => {
     return 1;
     // ...
@@ -29,6 +31,16 @@ const favoriteBlog = (blogs) => {
     return topBlog;
 }
 
+const mostBlogs = (blogs) => {
+    const newblogs = ld.countBy(blogs, blog => blog.author)
+    var maxKey = ld.maxBy(ld.keys(newblogs), function (o) { return newblogs[o]; });
+    return maxKey 
+}
+
+const mostLIked = (blogs) => {
+    
+}
+
 const checkId = (blogs) => {
     blogs.forEach(blog => {
         if (!blog.hasOwnProperty("id")){
@@ -43,5 +55,6 @@ const checkId = (blogs) => {
     totalLikes,
     favoriteBlog,
     checkId,
+    mostBlogs,
   }
 
