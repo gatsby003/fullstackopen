@@ -1,81 +1,100 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
+import LoginForm from './components/LoginForm'
+import BlogForm from './components/BlogForm'
+import Togglable from './components/Togglable'
 import blogService from './services/blogs'
-import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUserName] = useState('')
-  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [notification, setNotification] = useState(null)
+  const [loginVisible, setLoginVisible] = useState(false)
+
+  const blogFormRef = useRef()
+
+  const Notification = ({ message }) => {
+    if (message == null){
+      return null
+    }
+    return (
+      <div>
+        {message}
+      </div>
+    )
+  }
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
+  }, [blogs])
+
+  useEffect(() => {
+    const userJSON =window.localStorage.getItem('loggedBlogUser')
+    if (userJSON){
+      const user = JSON.parse(userJSON)
+      setUser(user)
+    }
   }, [])
 
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
+  const handleLogout = () => {
+    setUser(null)
+    setLoggedIn(false)
+    window.localStorage.removeItem('loggedBlogUser')
+  }
+
+  const logout = () => {
+    return (
       <div>
-        username 
-        <input
-          type="text"
-          name ="Username"
-          value = {username}
-          onChange = {({target}) => {
-            console.log(target.value)
-            setUserName(target.value)
-          }}
-        />
+        <p>{user.username} is logged in </p>
+        <button onClick={handleLogout}>logout</button>
       </div>
-      <div>
-        password
-        <input
-          type="password"
-          value={password}
-          name="password"
-          onChange = {({target}) => setPassword(target.value)}
+    )
+  }
+
+
+
+  const loginForm = () => {
+
+    return (
+      <Togglable buttonLabel='login'>
+        <LoginForm
+          setUser={setUser}
+          setLoggedIn={setLoggedIn}
         />
-      </div>
-      <button type="submit">login</button>
-    </form>
-  )
+      </Togglable>
+    )
+  }
 
-  const blog = () => (
-    <div>
-    <h2>blogs</h2>
-    {blogs.map(blog =>
-      <Blog key={blog.id} blog={blog} />
-    )}
-    </div>
-  )
-
-  
-
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    try {
-      const user = await loginService.login({
-          username, password,
-      })
-      console.log(user)
-      setUser(user)
-      setUserName('')
-      setPassword('')
-
-    } catch (e) {
-      console.log("bruh")
-      console.log(e)
-    }
+  const newBlog = () => {
+    return (
+      <Togglable buttonLabel="new blog" ref={blogFormRef}>
+        <BlogForm
+          newBlog={blogService.newBlog}
+          blogFormRef={blogFormRef}
+          setNotification={setNotification}
+        />
+      </Togglable>
+    )
   }
 
   return (
     <div>
-    {user == null ? 
-      loginForm() :
-      blog()
-    }
+      <Notification message={notification}/>
+      {
+        user == null ?
+          loginForm() :
+          <div>
+            <h2>blogs</h2>
+            {newBlog()}
+            {logout()}
+          </div>
+      }
+      {blogs.map(blog =>
+        <Blog key={blog.id} blog={blog} />
+      )}
     </div>
   )
 }

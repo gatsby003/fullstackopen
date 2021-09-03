@@ -1,12 +1,28 @@
-import axios from 'axios'
+const axios = require('axios')
+const baseUrl = 'http://localhost:3003/api/login'
+let token = null
 
-const baseUrl = "http://localhost:3001/api/login"
-
-const login = async (credentials) => {
-    console.log("here we are")
-    const response = await axios.post(baseUrl, credentials)
-    console.log(response)
-    return response.data
+const login = async (username, password) => {
+    try{
+        const result = await axios.post(
+            baseUrl, 
+            {
+                username,
+                password
+            }
+        )
+        return result
+    } catch {
+        console.log("wrong credentials") 
+    }
 }
 
-export default {login}
+const setToken = (token) => {
+    token = `bearer ${token}`
+    console.log(token)
+}
+
+module.exports = {
+    login,
+    setToken,
+}

@@ -1,6 +1,5 @@
-POST http://localhost:3001/api/blogs
-content-type: application/json
-
+POST http://localhost:3003/api/blogs
+Authorization : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiaWQiOiI2MTFjZTA0NjhkODRlMDUzODc0MTc2YTIiLCJpYXQiOjE2MjkzOTY1MzZ9.SiH0fj2hzZ-5MhxkCqKwcXSFZiDAhD3ozACM3zHkGsc
 {
     "title": "I am hodddnestyddddddddddd",
     "author": "Bloodsadsbastard",
