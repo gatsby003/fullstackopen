@@ -20,25 +20,46 @@ const asObject = (anecdote) => {
 const initialState = anecdotesAtStart.map(asObject)
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'VOTE_INCR':
-      const voteToIncr = state.find(n => n.id === action.data.id);
-      console.log(voteToIncr)
-      const newVote = {
-        ...voteToIncr,
-        votes : voteToIncr.votes++,
-      }
-      state.map(vote => 
-        vote.id !== newVote.id ? vote : newVote  
-      )
-      console.log(state)
-      return state
-    case 'VOTE_DECR':
-      return state
-    default:
-        return state
-  }
+  console.log(action)
 
+  switch (action.type){
+    case 'VOTE': {
+      const id = action.data.id
+      const notetochange = state.find(n => n.id === id)
+      const newObject = {
+        ...notetochange,
+        votes : notetochange.votes++,
+      }
+      console.log(newObject)
+      return state
+              .map(note => note.id !== id ? note : notetochange)
+              .sort((a,b) => a.votes > b.votes ? -1 : 1); 
+    }
+    case 'ADD': {
+      const content = action.data.content
+      const note = asObject(content)
+      const newstate = [...state, note].sort((a,b) => a.votes > b.votes ? -1 : 1) 
+      return newstate
+    }
+
+    default:
+      return state
+  }
+  
+}
+
+export const castVote = (id) => {
+  return {
+    type: 'VOTE',
+    data: {id}
+  }
+}
+
+export const addQuote = (content) => {
+  return {
+    type: 'ADD',
+    data: {content}
+  }
 }
 
 export default reducer
