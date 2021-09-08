@@ -1,14 +1,23 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { castVote } from "../reducers/anecdoteReducer";
-
+import {notifyVoteCast} from "../reducers/notifyReducer"
 
 const AnecdoteList = () => {
-    const anecdotes = useSelector(state => state)
+    const anecdotes = useSelector(state => {
+        if (state.filter === ''){
+            return state.anecdotes
+        }
+        console.log(state.filter)
+        const newstate = state.anecdotes.filter(anecdote => anecdote.content.includes(state.filter.query));
+        console.log(newstate)
+        return newstate
+    })
     const dispatch = useDispatch()
 
     const vote = (id) => {
         dispatch(castVote(id))
+        dispatch(notifyVoteCast(id))
       }
 
 
