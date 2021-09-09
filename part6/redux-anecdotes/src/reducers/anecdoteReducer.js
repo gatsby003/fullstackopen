@@ -1,3 +1,6 @@
+import noteService from "../services/anecdotes"
+
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -9,6 +12,7 @@ const anecdotesAtStart = [
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
+
 const asObject = (anecdote) => {
   return {
     content: anecdote,
@@ -17,9 +21,7 @@ const asObject = (anecdote) => {
   }
 }
 
-const initialState = anecdotesAtStart.map(asObject)
-
-const anecdoteReducer = (state = initialState, action) => {
+const anecdoteReducer = (state = [], action) => {
   console.log(action)
 
   switch (action.type){
@@ -36,10 +38,14 @@ const anecdoteReducer = (state = initialState, action) => {
               .sort((a,b) => a.votes > b.votes ? -1 : 1); 
     }
     case 'ADD': {
-      const content = action.data.content
-      const note = asObject(content)
+      const note = action.data
       const newstate = [...state, note].sort((a,b) => a.votes > b.votes ? -1 : 1) 
       return newstate
+    }
+
+    case 'INIT': {
+      console.log(action.data)
+      return action.data
     }
 
     default:
@@ -49,17 +55,36 @@ const anecdoteReducer = (state = initialState, action) => {
 }
 
 export const castVote = (id) => {
-  return {
-    type: 'VOTE',
-    data: {id}
+  return async dispatch => {
+    await noteService.makeVote(id)
+    dispatch({
+      type: 'VOTE',
+      data: {id}
+    })
   }
 }
 
-export const addQuote = (content) => {
-  return {
-    type: 'ADD',
-    data: {content}
+export const addQuote = (data) => {
+  return async dispatch => {
+    const newNote = await noteService.createNew(data)
+    dispatch({
+      type: 'ADD',
+      data : newNote
+    })
+    
   }
 }
+
+export const initAnec = () => {
+  return async dispatch => {
+    const anecdotes = await noteService.getAll()
+    console.log(anecdotes)
+    dispatch({
+      type : 'INIT',
+      data : anecdotes,
+    })
+  }
+}
+
 
 export default anecdoteReducer

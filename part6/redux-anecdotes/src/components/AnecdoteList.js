@@ -13,13 +13,13 @@ const AnecdoteList = () => {
         console.log(newstate)
         return newstate
     })
+    console.log("here bro", anecdotes);
     const dispatch = useDispatch()
 
     const vote = (id) => {
         dispatch(castVote(id))
-        dispatch(notifyVoteCast(id))
-      }
-
+        dispatch(notifyVoteCast(id, 5000))
+    }
 
     return (
         <div>
