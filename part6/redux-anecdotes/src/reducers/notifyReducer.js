@@ -1,4 +1,5 @@
 const defaultstate = null
+let timeOutId = null
 
 const notifyReducer = (state=defaultstate, action) => {
     switch(action.type){
@@ -18,7 +19,13 @@ export const notifyVoteCast = (id, time) => {
             type: 'SET_NOTIFICATION',
             data: {id}
         })
-        setTimeout(() => dispatch({type: 'UNSET_NOTIFICATION'}), time)
+        if (timeOutId != null){
+            clearTimeout(timeOutId)
+        }
+        timeOutId = setTimeout(() => {
+            dispatch({type: 'UNSET_NOTIFICATION'})
+            timeOutId = null;
+        }, time)
     }
 }
 

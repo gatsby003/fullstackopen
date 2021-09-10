@@ -1,15 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { addQuote } from "../reducers/anecdoteReducer";
-import noteService from '../services/anecdotes'
+import { connect } from "react-redux";
 
-const AnecdoteForm = () => {
-    const dispatch = useDispatch()
+const AnecdoteForm = (props) => {
     const addNote = async (event) => {
         event.preventDefault();
         const content = event.target.note.value
         event.target.note.value = ''
-        dispatch(addQuote(content))
+        props.addQuote(content)
     } 
     
 
@@ -25,5 +23,9 @@ const AnecdoteForm = () => {
     )
 }
 
+const mapDispatchToProps = {
+  addQuote
+}
 
-export default AnecdoteForm
+const ConnectedAnecdoteForm = connect(null, mapDispatchToProps)(AnecdoteForm)
+export default ConnectedAnecdoteForm

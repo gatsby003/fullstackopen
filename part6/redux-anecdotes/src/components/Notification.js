@@ -1,12 +1,9 @@
 
 import React from 'react'
-import {useSelector} from 'react-redux'
+import { connect } from 'react-redux'
 
-const Notification = () => {
-  const notification = useSelector(state => state.notification)
-  const anecdotes = useSelector(state => state.anecdotes)
-  const toshow = notification !== null ? anecdotes.find(anecdote => anecdote.id === notification.id) : null
-  console.log(notification)
+const Notification = (props) => {
+
   const style = {
     border: 'solid',
     padding: 10,
@@ -14,12 +11,22 @@ const Notification = () => {
   }
 
   return (
-    notification === null ? <div/> 
+    props.toshow === null ? <div/> 
     : <div style={style}>
-        <h3>you voted for </h3> {toshow.content}!
+        <h3>you voted for </h3> {props.toshow.content}!
       </div>
   )
 }
 
 
-export default Notification
+
+const mapStateToProps = (state) => {
+  const notification = state.notification
+  const anecdotes = state.anecdotes
+  const toshow = notification !== null ? anecdotes.find(anecdote => anecdote.id === notification.id) : null
+  return {toshow}
+
+}
+
+const ConnectedNotification = connect(mapStateToProps)(Notification)
+export default ConnectedNotification

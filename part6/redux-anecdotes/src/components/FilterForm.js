@@ -1,14 +1,12 @@
 import React from 'react' 
 import { makeSearch } from '../reducers/filterReducer'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 
 
-
-const FilterForm = () => {
-    const dispatch = useDispatch()
+const FilterForm = (props) => {
     const doChange = (query) => {
         console.log(query)
-        dispatch(makeSearch(query))
+        props.makeSearch(query)
     }
     
     return(
@@ -19,5 +17,9 @@ const FilterForm = () => {
     
     
 }
-
-export default FilterForm
+const mapDispatchToProps = {
+    makeSearch
+  }
+  
+const ConnectedFilterForm = connect(null, mapDispatchToProps)(FilterForm)
+export default ConnectedFilterForm

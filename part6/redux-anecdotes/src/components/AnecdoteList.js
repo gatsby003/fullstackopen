@@ -1,30 +1,21 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {connect} from 'react-redux'
 import { castVote } from "../reducers/anecdoteReducer";
 import {notifyVoteCast} from "../reducers/notifyReducer"
 
-const AnecdoteList = () => {
-    const anecdotes = useSelector(state => {
-        if (state.filter === ''){
-            return state.anecdotes
-        }
-        console.log(state.filter)
-        const newstate = state.anecdotes.filter(anecdote => anecdote.content.includes(state.filter.query));
-        console.log(newstate)
-        return newstate
-    })
-    console.log("here bro", anecdotes);
-    const dispatch = useDispatch()
+const AnecdoteList = (props) => {
+
+
 
     const vote = (id) => {
-        dispatch(castVote(id))
-        dispatch(notifyVoteCast(id, 5000))
+        props.castVote(id)
+        props.notifyVoteCast(id, 5000)
     }
 
     return (
         <div>
             <h2>Anecdotes</h2>
-            {anecdotes.map(anecdote =>
+            {props.anecdotes.map(anecdote =>
             <div key={anecdote.id}>
                 <div>
                 {anecdote.content}
@@ -37,9 +28,28 @@ const AnecdoteList = () => {
             )}
         </div>
     )
-
-
-
 }
 
-export default AnecdoteList
+const mapStateToProps = (state) => {
+    if (state.filter === ''){
+        return{anecdotes :  state.anecdotes}
+    }
+    console.log(state)
+    return{anecdotes: 
+        state
+            .anecdotes
+            .filter(
+                anecdote => anecdote
+                                .content
+                                .includes(
+                                    state.filter.query))};
+}
+
+
+const mapDispatchToProps = {
+    notifyVoteCast,
+    castVote
+}
+
+const ConnectedAnecdotes = connect(mapStateToProps, mapDispatchToProps)(AnecdoteList)
+export default ConnectedAnecdotes
