@@ -1,0 +1,48 @@
+{
+  "notes": [
+    {
+      "content": "custom-hooks are grat",
+      "id": 1
+    },
+    {
+      "content": "the best featrure ever <3",
+      "id": 2
+    },
+    {
+      "content": "ddd",
+      "id": 3
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "kaltsoon",
+      "number": "045-2323456",
+      "id": 2
+    },
+    {
+      "name": "india",
+      "number": "1223",
+      "id": 3
+    },
+    {
+      "name": "india",
+      "number": "1223",
+      "id": 4
+    },
+    {
+      "name": "d",
+      "number": "d",
+      "id": 5
+    },
+    {
+      "name": "d",
+      "number": "8654654",
+      "id": 6
+    }
+  ]
+}
