@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { Form, Table } from 'react-bootstrap'
+import { Button, Alert } from 'react-bootstrap'
 
 import {
   BrowserRouter as Router,
   Switch, Route, Link, useParams, Redirect, useHistory
 } from "react-router-dom"
 
+import {useField} from './hooks/index'
 
 const Anecdote = ({anecdotes}) => {
   const id = useParams().id
@@ -25,11 +28,13 @@ const Anecdote = ({anecdotes}) => {
 const AnecdoteList = ({anecdotes}) => (
   <div>
     <h2>Anecdotes</h2>
-    <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >
+    <Table striped>
+    <tbody>
+      {anecdotes.map(anecdote => <tr key={anecdote.id} >
         <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
-      </li>)}
-    </ul>
+      </tr>)}
+    </tbody>
+    </Table>
   </div>
 )
 
@@ -56,42 +61,54 @@ const Footer = () => (
 )
 
 const CreateNew = ({addNew, setNotification}) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
   const history = useHistory()
+
+  const content = useField('text', 'content')
+  const author = useField('text', 'author')
+  const info = useField('text', 'info')
 
 
   const handleSubmit = (e) => {
     e.preventDefault()
     addNew({
-      content,
-      author,
-      info,
+      content : content.value,
+      author: author.value,
+      info : info.value,
       votes: 0
     })
     history.push('/')
-    setNotification(content)
+    setNotification(content.value)
   }
+
+  const clearField = () => {
+    content.clearme()
+    author.clearme()
+    info.clearme()
+  }
+
+
 
   return (
     <div>
       <h2>create a new anecdote</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
-        </div>
-        <div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>content:</Form.Label>
+          <Form.Control
+              {...content}
+          />
+        <Form.Label>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
-        </div>
-        <div>
+        </Form.Label>  
+          <Form.Control {...author}/>
+        <Form.Label>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
-        </div>
-        <button>create</button>
-      </form>
+        </Form.Label>
+          <Form.Control {...info} />
+        <Button variant="primary">create</Button>
+        </Form.Group>
+      </Form>
+      <Button variant="danger" onClick={() => clearField()}>clear</Button>
     </div>
   )
 
@@ -99,9 +116,9 @@ const CreateNew = ({addNew, setNotification}) => {
 
 const Notification = ({notification, setNotification}) => {
   setTimeout(() => setNotification(''), 5000)
-  return (<div>
+  return (<Alert variant="success">
     just added {notification}!
-  </div>)
+  </Alert>)
 }
 
 const App = () => {
@@ -148,7 +165,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div class="container">
       <h1>Software anecdotes</h1>
       <Router>
       <div>

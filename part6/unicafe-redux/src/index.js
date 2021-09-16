@@ -5,16 +5,8 @@ import reducer from './reducer'
 
 const store = createStore(reducer)
 
-const generateId = () => {
-  Math.floor(Math.random() * 1000000)
-}
 
 const App = () => {
-  
-
-
-
-
   const good = () => {
     store.dispatch({
       type: 'GOOD'
@@ -38,6 +30,7 @@ const App = () => {
       type: 'ZERO'
     })
   }
+
   return (
     <div>
       <button onClick={good}>good</button> 
