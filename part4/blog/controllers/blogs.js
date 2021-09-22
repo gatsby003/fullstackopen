@@ -1,6 +1,7 @@
 const blogRouter = require('express').Router();
 const Blog = require('../models/blog');
 const User = require('../models/user')
+const Comment = require('../models/comment')
 const jwt = require('jsonwebtoken')
 
 
@@ -61,6 +62,26 @@ blogRouter.put('/:id', async(request, response) => {
   const result = await Blog.findByIdAndUpdate(request.params.id, request.body);
   console.log(result);
   response.status(200).end();
+})
+
+blogRouter.get('/comments/:id', async(req, res) => {
+  const result = await Comment.find({blog : req.params.id})
+  res.json(result)
+})
+
+blogRouter.post('/comments/:id', async(req, res) => {
+  console.log("hi")
+  if (!req.body.comment){
+		return res.status(400).json({
+			error : "empty comment not allowed"
+		})
+	}
+  const comment = new Comment ({
+    blog : req.params.id,
+    comment : req.body.comment,
+  })
+  const savedcomment = await comment.save();
+  res.status(204).end()
 })
 
 module.exports = blogRouter;

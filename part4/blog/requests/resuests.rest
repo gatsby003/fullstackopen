@@ -1,5 +1,6 @@
-POST http://localhost:3003/api/blogs
-Authorization : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiaWQiOiI2MTFjZTA0NjhkODRlMDUzODc0MTc2YTIiLCJpYXQiOjE2MjkzOTY1MzZ9.SiH0fj2hzZ-5MhxkCqKwcXSFZiDAhD3ozACM3zHkGsc
+POST http://localhost:3001/api/blogs
+content-type: application/json
+
 {
     "title": "I am hodddnestyddddddddddd",
     "author": "Bloodsadsbastard",
@@ -22,18 +23,36 @@ content-type: application/json
 
 #############
 
-PUT http://localhost:3003/api/blogs/611ced3275c2caa965ead167
+
+POST http://localhost:3003/api/blogs/comments/61495eba93fe301caea515e8
 content-type: application/json
 
 {
-    "id": "60c89166a7747d999666acdf",
+    "comment" : "very coool!"
+}
+
+########
+
+GET http://localhost:3003/api/blogs/comments/61495eba93fe301caea515e8
+content-type: application/json
+
+
+
+###########
+
+PUT http://localhost:3003/api/blogs/614822f01d13014f6e73cb54
+content-type: application/json
+
+{
+    "id": "614822f01d13014f6e73cb54",
     "title": "I am a liar",
     "author": "Bloodbastard",
-    "likes": 69
+    "likes": 5456,
+    "url": "india"
 }
 
 ###################
-DELETE http://localhost:3003/api/blogs/611ceeb92770acaedaac443a
+DELETE http://localhost:3003/api/blogs/60c882cabb764670ba3c9d48
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJtrUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiaWQiOiI2MTFjZTA0NjhkODRlMDUzODc0MTc2YTIiLCJpYXQiOjE2MjkyODMyNjl9.NvYKW2nimXrqrnnHVznoiCXFW7tpOsZ4qQ7PKtBYBiI
 
@@ -57,7 +76,6 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZ
 {
     "title": "Roman Athelte",
     "author": "Have you been drinking?",
-    "likes": 69,
     "url" : "www.csadasom"
 
 }

@@ -1,16 +1,19 @@
 
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import { addUser } from '../reducers/userReducer'
 import loginService from '../services/login'
+import { useDispatch } from 'react-redux'
+import { TextField, Button } from '@material-ui/core'
 
 const LoginForm = ({
-  setUser,
   setLoggedIn
 }) => {
 
   const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
+  const dispatch = useDispatch()
+  
   const handleSubmit =  async (e) => {
     e.preventDefault()
     const result =  await loginService.login(username, password)
@@ -19,11 +22,10 @@ const LoginForm = ({
       window.localStorage.setItem(
         'loggedBlogUser', JSON.stringify(result.data)
       )
-      loginService.setToken(result.data.token)
-      setUser(result.data)
-      setLoggedIn(true)
       setUserName('')
       setPassword('')
+      dispatch(addUser(result.data))
+      console.log(result.data)
     }else{
       alert('wrong crednetials')
       setUserName('')
@@ -34,8 +36,8 @@ const LoginForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        Username
-        <input
+        <TextField
+          label="UserName"
           id="Username"
           type="text"
           value={username}
@@ -44,8 +46,8 @@ const LoginForm = ({
         />
       </div>
       <div>
-        Password
-        <input
+        <TextField
+          label="Password"
           id="Password"
           type="password"
           value={password}
@@ -54,12 +56,13 @@ const LoginForm = ({
         />
       </div>
       <div>
-        <button 
+        <Button 
+          variant="contained"
+          color="primary"
           type="submit"
-          id="login-button"
         >
           Submit
-        </button>
+        </Button>
       </div>
     </form>
   )

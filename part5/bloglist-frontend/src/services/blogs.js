@@ -7,28 +7,63 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
+const getconfig = () => {
+  const user = JSON.parse(localStorage.getItem('loggedBlogUser'))
+  console.log(user)
+  return {
+    headers: {
+      Authorization: `bearer ${user.token}`,
+    }
+  }
+
+}
+
 const newBlog = async (title, author, url) => {
   const request = {
     title,
     author,
-    url
-  }
-  const config = {
-    headers: {
-      Authorization: token,
-    }
+    url,
+    likes : 0
   }
 
   const result = await axios.post(
     baseUrl,
     request,
-    config
+    getconfig()
   )
-  return result
+  return result.data
+}
+
+
+
+const deleteBlog = async(id) =>{
+  await axios.delete(
+    `${baseUrl}/${id}`,
+
+    getconfig()
+  )
+}
+
+const likeBlog = async(blog) => {
+  console.log(blog)
+  const likedBlog = {
+    title : blog.title,
+    author : blog.author,
+    url : blog.url,
+    likes : blog.likes + 1,
+
+  }
+  await axios.put(
+    `${baseUrl}/${blog.id}`,
+    likedBlog,
+    getconfig()
+  )
 }
 
 export default {
   getAll ,
-  newBlog
+  newBlog,
+  deleteBlog,
+  likeBlog
 
 }
